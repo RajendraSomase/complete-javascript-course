@@ -352,7 +352,7 @@ yearsUntilRetirement('Marry', 1955);*/
 */
 
 //Function Expression
-var whatDoYouDo = function(firstName,job){
+/*var whatDoYouDo = function(firstName,job){
     switch(job){
             
         case 'Teacher' :return  console.log(firstName + ' Teaches students how to code');
@@ -366,4 +366,181 @@ var whatDoYouDo = function(firstName,job){
 whatDoYouDo('John','Teacher');
 whatDoYouDo('Mike','Cop');
 whatDoYouDo('Marry','Driver');
-whatDoYouDo('Wilson','Designer');
+whatDoYouDo('Wilson','Designer');*/
+
+
+/***********************************************
+* Arrays
+*/
+
+//Arrays declaration
+/*
+var names = ['John', 'Mark','Marry'];
+var years = new Array(1990,1985,1955);
+
+console.log(names);
+console.log(years);
+console.log(names[2]);
+console.log(years[2]);
+
+//Arrays mutation
+names[2] = 'Rajendra';
+names[names.length] = 'Dinesh';
+console.log(names);
+
+//Arrays with different data types
+var john = ['John', 'Smith', 1990, 'Designer'];
+
+console.log(john);
+john.push(false);
+john.unshift('Mr.')
+
+console.log(john);
+
+john.pop();
+console.log(john);
+john.shift();
+console.log(john);
+
+console.log(john.indexOf(23));
+
+var isDesigner = john.indexOf('Designer') === -1 ? 'John is not Designer': 'John is a Designer';
+console.log(isDesigner);
+*/
+
+
+/********************************************
+* Coding Challage three
+
+   John & Family went to holiday and they went to 3 diffrent restaurants
+   
+   Bills are 124, 48 & 268
+   
+   Tip calculation 
+   20% when less that 50
+   15% when between 50 to 200
+   10% when more than 200
+   
+   Result;
+   1. Array of all three tips,
+   2. Array of all three Bills (Bill + Tip)
+   */
+
+
+/*function calculateTip(bill){
+    if(bill<50){
+        return 20 * (bill/100);
+    }else if(bill>=50 && bill<200){
+        return 15 * (bill/100);
+    }else if(bill >200){
+        return 10 * (bill/100);
+    }
+}
+
+var tipArray = [calculateTip(124),calculateTip(48),calculateTip(268)];
+var billArray = [(124+calculateTip(124)),(48+calculateTip(48)),(268+calculateTip(268))];
+
+console.log(tipArray);
+console.log(billArray);*/
+
+
+
+/****************************************************
+** Objects and Properties
+*/
+
+// Object Literal
+/*
+var john = {
+    firstName : 'John',
+    lastName : 'Smith',
+    isMarried : false,
+    job : 'Teacher',
+    family : ['Mark','Marry']
+}
+
+console.log(john);
+console.log(john.family)
+console.log(john['firstName']);
+
+//Mutation
+
+john.isMarried = true;
+john.job = 'Designer';
+console.log(john);
+
+
+//New Object
+
+var jane = new Object();
+
+jane.firstName = 'Jane';
+jane.lastName = 'Smith';
+jane.isMarried = true;
+jane['job'] = 'Teacher';
+
+console.log(jane);
+*/
+
+
+
+
+/******************************************************
+*  Objects & Methods
+**/
+
+/*
+var john = {
+    firstName : 'John',
+    lastName : 'Smith',
+    isMarried : false,
+    job : 'Teacher',
+    family : ['Mark','Marry'],
+    birthYear:1990,
+    calculateAge:function(){
+        this.age = 2020 - this.birthYear;
+    }
+}
+
+console.log(john.calculateAge());
+//john.age = john.calculateAge();
+console.log(john);
+*/
+
+
+/*  ******* Coding Challange 2
+ Mark & John trying to compare BMI
+ BMI = mass / height^2 = mass /(height * height)\
+ mass in kg and height in meter
+1. Define object for both
+2. Calculate BMI with method in object also return it in method
+*/
+
+
+var john = {
+    name : 'John Smith',
+    mass: 90,
+    height:1.73,
+    calculateBMI : function(){
+       this.bmi = this.mass/ (this.height *this.height);
+    }
+}
+
+john.calculateBMI();
+console.log(john);
+var mark = {
+name : 'Mark Jonas',
+mass : 75,
+height : 1.55,  
+calculateBMI : function(){
+    this.bmi = this.mass/ (this.height * this.height);
+}
+}
+mark.calculateBMI();
+console.log(mark);
+
+
+var printWinner = mark.bmi > john.bmi ? (mark.name +' ' +mark.bmi)  : (john.name + john.bmi); 
+
+console.log(' Whose BMI is Higher ?' + printWinner);
+
