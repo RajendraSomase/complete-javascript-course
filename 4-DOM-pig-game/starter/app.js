@@ -9,7 +9,7 @@ GAME RULES:
 
 */
 
-var score, roundScore,activePlayer,isGamePlaying;
+var score, roundScore,activePlayer,isGamePlaying,previousDice;
 
 init();
 function init(){
@@ -17,6 +17,7 @@ function init(){
     score= [0,0];
     roundScore=0;
     activePlayer = 0;
+    previousDice = 6;
 
     document.querySelector('#score-0').textContent = 0;
     document.querySelector('#score-1').textContent = 0;
@@ -44,12 +45,14 @@ document.querySelector('.btn-roll').addEventListener('click',function(){
         diceDom.src = 'dice-'+dice+'.png';
 
         //Update the roundScore if rolled number is 1
-        if(dice!=1){
-            roundScore += dice;
-            document.querySelector('#current-'+activePlayer).textContent = roundScore;
-        }else{
+        if((dice === 6 && previousDice === dice) || dice===1){
             //Next Player
             nextPlayer();
+            //roundScore += dice;
+            //document.querySelector('#current-'+activePlayer).textContent = roundScore;
+        }else{
+            roundScore += dice;
+            document.querySelector('#current-'+activePlayer).textContent = roundScore;
         }
    
    }
@@ -85,3 +88,6 @@ document.querySelector('.btn-hold').addEventListener('click',function(){
         }    
     }
 });
+
+
+// 1. If Dice rolled 6 twice then player loose entire score
