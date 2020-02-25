@@ -31,14 +31,11 @@ var budgetController = (function(){
         addItem: function(type, description,value){
             var ID, newItem;
             //ID
-            
             if(budgetData.allItems[type].length>0){
                 ID = budgetData.allItems[type][budgetData.allItems[type].length - 1].id +1;    
             }else{
                 ID = 0;    
             }
-            
-            
             
             //New Item
             if(type === 'exp'){
@@ -62,7 +59,9 @@ var UIController = (function(){
         DOMType: '.add__type',
         DOMDescription : '.add__description',
         DOMValue : '.add__value',
-        DOMAddbtn : '.add__btn'
+        DOMAddbtn : '.add__btn',
+        DOMIncomeDiv: '.income__list',
+        DOMExpenseDiv:'.expenses__list'
     }
     return {
         getInput: function(){
@@ -73,6 +72,25 @@ var UIController = (function(){
             };
         },
         
+        addListItem : function(object,type){
+            var html, newHTML, element;
+            //1. Create HTML PlaceHolder
+            if(type === 'inc'){
+                element = DOMString.DOMIncomeDiv;
+                html = '<div class="item clearfix" id="income-%id%"><div class="item__description">%description%</div><div class="right clearfix"><div class="item__value">%value%</div><div class="item__delete"><button class="item__delete--btn"><i class="ion-ios-close-outline"></i></button></div></div></div>';
+            }else if(type === 'exp'){
+                element = DOMString.DOMExpenseDiv;
+                html = '<div class="item clearfix" id="expense-%id%"><div class="item__description">%description%</div><div class="right clearfix"><div class="item__value">%value%</div><div class="item__percentage">21%</div><div class="item__delete"><button class="item__delete--btn"><i class="ion-ios-close-outline"></i></button></div></div></div>';
+            }
+            
+            //2. Replace HTML Placeholder with data
+            newHTML = html.replace('%id%',object.id);
+            newHTML = newHTML.replace('%description%',object.description);
+            newHTML = newHTML.replace('%value%',object.value);
+            
+            //3. Add List item to HTML
+            document.querySelector(element).insertAdjacentHTML('beforeend',newHTML);
+        },
         getDOMString: function(){
             return DOMString;
         }
@@ -104,6 +122,9 @@ var appController = (function(budgetController,UIController){
         //2. Add Item
         var addItem = budgetController.addItem(input.type,input.description,input.value);
         console.log(addItem);
+        
+        //3. Add List Item to HTML Page
+        UIController.addListItem(addItem,input.type);
     }     
     
     return {
