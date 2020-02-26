@@ -48,6 +48,9 @@ var budgetController = (function(){
             budgetData.allItems[type].push(newItem);
             console.log(budgetData.allItems[type]);
             return newItem;
+        },
+        publicTesting: function(){
+            console.log(budgetData);
         }
     }
         
@@ -68,7 +71,7 @@ var UIController = (function(){
             return {
                 type : document.querySelector(DOMString.DOMType).value,
                 description : document.querySelector(DOMString.DOMDescription).value,
-                value : document.querySelector(DOMString.DOMValue).value
+                value : parseFloat(document.querySelector(DOMString.DOMValue).value)
             };
         },
         
@@ -91,6 +94,19 @@ var UIController = (function(){
             //3. Add List item to HTML
             document.querySelector(element).insertAdjacentHTML('beforeend',newHTML);
         },
+        
+        clearFiels : function(){
+            var fields, fieldsArray;
+            
+            fields = document.querySelectorAll(DOMString.DOMDescription+', '+DOMString.DOMValue);
+            fieldsArray = Array.prototype.slice.call(fields);
+        
+            console.log(fields,fieldsArray);
+            fieldsArray.forEach(function(current,index,array){
+                current.value ="";
+            });
+        },
+        
         getDOMString: function(){
             return DOMString;
         }
@@ -119,12 +135,18 @@ var appController = (function(budgetController,UIController){
         var input = UIController.getInput(); 
         console.log(input);
         
-        //2. Add Item
-        var addItem = budgetController.addItem(input.type,input.description,input.value);
-        console.log(addItem);
+        if(input.description!="" && !isNaN(input.value) && input.value!=0){
+            //2. Add Item
+            var addItem = budgetController.addItem(input.type,input.description,input.value);
+            console.log(addItem);
+
+            //3. Add List Item to HTML Page
+            UIController.addListItem(addItem,input.type);
+
+            //4. clear Fields
+            UIController.clearFiels();   
+        }
         
-        //3. Add List Item to HTML Page
-        UIController.addListItem(addItem,input.type);
     }     
     
     return {
